@@ -1,6 +1,6 @@
 {
   "name": "@neuralmux/omp-superwhisper",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Superwhisper voice integration extension for Oh My Pi — get voice notifications when tasks complete",
   "type": "module",
   "keywords": [

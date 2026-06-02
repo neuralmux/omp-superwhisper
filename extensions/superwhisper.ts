@@ -22,9 +22,17 @@ async function getGitBranch(cwd: string): Promise<string | undefined> {
   }
 }
 
-export default async function superwhisperExtension(pi: ExtensionAPI): Promise<void> {
+export default function superwhisperExtension(pi: ExtensionAPI): void {
   const host: HostOps = getHostOps()
-  const { scheme } = await host.detect()
+  // Lazy — detect on first use so the factory stays synchronous.
+  // OMP's extension loader does not await async factories.
+  let _scheme: Promise<string> | null = null
+  const getScheme = (): Promise<string> => {
+    if (!_scheme) {
+      _scheme = host.detect().then((d) => d.scheme)
+    }
+    return _scheme
+  }
 
   const DEBUG = !!process.env.SUPERWHISPER_DEBUG
   const LOG_FILE = `${MESSAGE_DIR}/debug.log`
@@ -94,9 +102,9 @@ export default async function superwhisperExtension(pi: ExtensionAPI): Promise<v
     return false
   }
 
-  function sendDismiss(sessionId: string, source: string) {
+  async function sendDismiss(sessionId: string, source: string) {
     log("debug", `Sending dismiss via inbox (${source}) for session=${sessionId}`)
-    host.deliverPayload({ kind: "dismiss", sessionId }, scheme).catch((err) => {
+    host.deliverPayload({ kind: "dismiss", sessionId }, await getScheme()).catch((err) => {
       log("error", `Failed to send dismiss for session=${sessionId}: ${err}`)
     })
   }
@@ -152,7 +160,7 @@ export default async function superwhisperExtension(pi: ExtensionAPI): Promise<v
           title,
           hookPid: process.pid,
         },
-        scheme,
+        await getScheme(),
       )
     } catch (err) {
       log("error", `Failed to deliver Superwhisper payload — ${err}`)
