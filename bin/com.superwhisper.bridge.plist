@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.superwhisper.bridge</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__BUN_PATH__</string>
+    <string>run</string>
+    <string>__SCRIPT_PATH__</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/tmp/superwhisper-bridge.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/superwhisper-bridge.err</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>SUPERWHISPER_DEBUG</key>
+    <string>__DEBUG__</string>
+  </dict>
+</dict>
+</plist>

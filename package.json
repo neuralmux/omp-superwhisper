@@ -1,0 +1,48 @@
+  "name": "omp-superwhisper",
+  "version": "1.0.1",
+  "description": "Superwhisper voice integration extension for Oh My Pi — get voice notifications when tasks complete",
+  "type": "module",
+  "keywords": [
+    "omp",
+    "oh-my-pi",
+    "omp-extension",
+    "superwhisper",
+    "voice",
+    "notifications",
+    "ai",
+    "coding-agent"
+  ],
+  "author": "Superwhisper",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:neuralmux/pi-superwhisper.git"
+  },
+  "omp": {
+    "extensions": ["./extensions/superwhisper.ts"]
+  },
+  "pi": {
+    "extensions": ["./extensions/superwhisper.ts"]
+  },
+  "files": [
+    "extensions",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "superwhisper-bridge": "./bin/superwhisper-bridge.ts",
+    "install-bridge-service": "./bin/install-bridge-service.ts"
+  },
+  "scripts": {
+    "typecheck": "bun run tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@oh-my-pi/pi-coding-agent": ">=0.65.0"
+  },
+  "devDependencies": {
+    "@oh-my-pi/pi-coding-agent": "^0.70.6",
+    "@types/bun": "latest",
+    "typescript": "^5.7.3"
+  }
+}
