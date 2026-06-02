@@ -1,4 +1,4 @@
-# omp-superwhisper
+# @neuralmux/omp-superwhisper
 
 Superwhisper voice integration extension for [Oh My Pi](https://github.com/neuralmux/oh-my-pi).
 
@@ -11,23 +11,39 @@ Get voice notifications when your AI coding tasks complete, and respond with you
 
 ## Installation
 
-### Via OMP extension discovery
-
-Place this package under `~/.omp/agent/extensions/` or `<project>/.omp/extensions/`. OMP auto-discovers `.ts` extension modules from these locations.
+### Via `omp plugin` (recommended)
 
 ```bash
-# user-level (available in all sessions)
-mkdir -p ~/.omp/agent/extensions
-cp -r extensions/superwhisper.ts extensions/host.ts extensions/constants.ts \
-      extensions/message.ts extensions/poll.ts extensions/inbox.ts \
-      ~/.omp/agent/extensions/
+# Local path — install directly from a local clone
+omp plugin install /workspaces/superwhisper-omp
 
-# project-level (available in this project only)
+# Local development — symlink so edits are picked up live
+omp plugin link /workspaces/superwhisper-omp
+
+# From npm (once published)
+omp plugin install @neuralmux/omp-superwhisper
+
+# From a git repository
+omp plugin install github.com/neuralmux/pi-superwhisper
+```
+
+OMP installs the package into `~/.omp/plugins/node_modules/`, discovers
+`omp.extensions` from `package.json`, and wires extension modules into the
+runtime. Restart OMP to activate.
+
+### Manual (user-level)
+
+```bash
+mkdir -p ~/.omp/agent/extensions
+cp extensions/*.ts ~/.omp/agent/extensions/
+```
+
+### Manual (project-level)
+
+```bash
 mkdir -p .omp/extensions
 cp extensions/*.ts .omp/extensions/
 ```
-
-Restart OMP to activate.
 
 ## How It Works
 
